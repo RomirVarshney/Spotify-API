@@ -80,7 +80,7 @@ for i in range(len(ids)):
   tracks.append(track)
   print(tracks[i])
 
-print("Individual Features")
+
 
 albums = [row[1] for row in tracks]
 print(albums)
