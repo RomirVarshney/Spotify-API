@@ -80,13 +80,49 @@ for i in range(len(ids)):
   tracks.append(track)
   print(tracks[i])
 
-
-
 albums = [row[1] for row in tracks]
-print(albums)
+# print(albums)
 
 tempos = [row[14] for row in tracks]
-print(tempos)
+# print(tempos)
+
+names = [row[0] for row in tracks]
+print()
+print("These are all the songs in the playlist.")
+print(names)
+
+q = 0
+while(q < 1):
+  x = input("Enter the name of the song that you want to use: ")
+  if x in names:
+    q = 3
+    print(x, "was found in the playlist")
+    index = names.index(x)
+    print("The index of the name is ", index)
+
+z = tempos[index]
+print("The BPM is ", z)
+
+diff = 999
+diffIndex = 0
+
+for i in range(len(ids)):
+  if (i == index):
+    continue
+
+  if(abs(tempos[i] - z) < diff):
+    diff = abs(tempos[i] - z)
+    diffIndex = i
+
+print("Difference is ", diff)
+print("Song is", names[diffIndex])
+
+print("Based on BPM, the best mashup pair in the playlist would be")
+print()
+print(x, "X", names[diffIndex])
+print()
+
+
 
 
 
