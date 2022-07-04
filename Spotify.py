@@ -56,6 +56,7 @@ def getTrackFeatures(id):
   speechiness = features[0]['speechiness']
   tempo = features[0]['tempo']
   time_signature = features[0]['time_signature']
+  # key = features[0]['key']
 
   # custom arrays
 
@@ -91,36 +92,42 @@ print()
 print("These are all the songs in the playlist.")
 print(names)
 
-q = 0
-while(q < 1):
-  x = input("Enter the name of the song that you want to use: ")
-  if x in names:
-    q = 3
-    print(x, "was found in the playlist")
-    index = names.index(x)
-    print("The index of the name is ", index)
+#q = 0
+#while(q < 1):
+  #x = input("Enter the name of the song that you want to use: ")
+  #if x in names:
+    #q = 3
+    #print(x, "was found in the playlist")
+    #index = names.index(x)
+    #print("The index of the name is ", index)
 
-z = tempos[index]
-print("The BPM is ", z)
+#z = tempos[index]
+#print("The BPM is ", z)
 
 diff = 999
 diffIndex = 0
 
-for i in range(len(ids)):
-  if (i == index):
-    continue
+for j in range(len(ids)):
+  x = tempos[j]
+  for i in range(len(ids)):
 
-  if(abs(tempos[i] - z) < diff):
-    diff = abs(tempos[i] - z)
-    diffIndex = i
+    if (i == j):
+      continue
 
-print("Difference is ", diff)
-print("Song is", names[diffIndex])
+    z = tempos[i]
+    if(abs(x - z) <= 3.1):
+      #diff = abs(tempos[i] - z)
+      #diffIndex = i
 
-print("Based on BPM, the best mashup pair in the playlist would be")
-print()
-print(x, "X", names[diffIndex])
-print()
+      #print("Difference is ", diff)
+      #print("Song is", names[diffIndex])
+      if(names[i] == names[j]):
+        continue
+      else:
+        print("Based on BPM, the best mashup pair in the playlist would be")
+        print()
+        print(names[j], "X", names[i])
+        print()
 
 
 
