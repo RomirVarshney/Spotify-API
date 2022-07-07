@@ -37,6 +37,9 @@ def getTrackFeatures(id):
   global avgDance
   meta = sp.track(id)
   features = sp.audio_features(id)
+  
+  print(sp.audio_features(id)) # line that gives the line including the key
+  
 
   # meta
   name = meta['name']
@@ -71,6 +74,8 @@ def getTrackFeatures(id):
  
 print("There are " + str(len(ids)) + " songs in this playlist")
 #print(ids)
+
+
 
 tracks = []
 for i in range(len(ids)):
