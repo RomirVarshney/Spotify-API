@@ -38,7 +38,8 @@ def getTrackFeatures(id):
   meta = sp.track(id)
   features = sp.audio_features(id)
   
-  print(sp.audio_features(id)) # line that gives the line including the key
+
+  # print((sp.audio_features(id)[0]['key'])) # line that gives the line including the key
   
 
   # meta
@@ -59,7 +60,7 @@ def getTrackFeatures(id):
   speechiness = features[0]['speechiness']
   tempo = features[0]['tempo']
   time_signature = features[0]['time_signature']
-  # key = features[0]['key']
+  key = sp.audio_features(id)[0]['key']
 
   # custom arrays
 
@@ -74,7 +75,6 @@ def getTrackFeatures(id):
  
 print("There are " + str(len(ids)) + " songs in this playlist")
 #print(ids)
-
 
 
 tracks = []
