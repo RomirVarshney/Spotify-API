@@ -32,6 +32,8 @@ def getTrackIDs(user, playlist_id):
 ids = getTrackIDs('Romir Varshney', '5ZIFa3koaqbNG7WBqSpcdg')
 
 avgDance = 0.00000000
+keyArray = [] * len(ids)
+
 
 def getTrackFeatures(id):
   global avgDance
@@ -60,13 +62,9 @@ def getTrackFeatures(id):
   speechiness = features[0]['speechiness']
   tempo = features[0]['tempo']
   time_signature = features[0]['time_signature']
+
   key = sp.audio_features(id)[0]['key']
-
-  # custom arrays
-
-  nameArray = [] * len(ids)
-  tempoArray = [] * len(ids)
-
+  keyArray.append(key)
 
 
   track = [name, album, artist, release_date, length, popularity, danceability, acousticness, danceability, energy, instrumentalness, liveness, loudness, speechiness, tempo, time_signature]
@@ -79,8 +77,6 @@ print("There are " + str(len(ids)) + " songs in this playlist")
 
 tracks = []
 for i in range(len(ids)):
-  #time.sleep(.5)
-  #print("Song Name: ", track['name'])
 
   track = getTrackFeatures(ids[i])
   tracks.append(track)
@@ -93,6 +89,13 @@ tempos = [row[14] for row in tracks]
 # print(tempos)
 
 names = [row[0] for row in tracks]
+
+nameSet = set()
+tierOne = set()
+tierTwo = set()
+
+print(keyArray)
+
 print()
 print("These are all the songs in the playlist.")
 print(names)
@@ -121,14 +124,12 @@ for j in range(len(ids)):
 
     z = tempos[i]
     if(abs(x - z) <= 3.1):
-      #diff = abs(tempos[i] - z)
-      #diffIndex = i
-
-      #print("Difference is ", diff)
-      #print("Song is", names[diffIndex])
       if(names[i] == names[j]):
         continue
       else:
+        nameSet.add(names[i])
+        nameSet.add(names[j])
+
         print("Based on BPM, the best mashup pair in the playlist would be")
         print()
         print(names[j], "X", names[i])
@@ -136,7 +137,36 @@ for j in range(len(ids)):
 
 
 
+for j in range(len(ids)):
+  x = keyArray[j]
+  for i in range(len(ids)):
+
+    if (i == j):
+      continue
+
+    z = keyArray[i]
+    if(abs(x - z) <= 0.1):
+      if(names[i] == names[j]):
+        continue
+      else:
+        tierOne.add(names[i])
+        tierOne.add(names[j])
+        print("Based on key, a tier 1 pair in the playlist would be")
+        print()
+        print(names[j], "X", names[i])
+        print()
+    
+    if((abs(x - z) <= 5.2) and (abs(x - z) >= 4.8)):
+      tierTwo.add(names[i])
+      tierTwo.add(names[j])
+      print("Based on key, a tier 2 pair in the playlist would be")
+      print()
+      print(names[j], "X", names[i])
+      print()
+
+
 
 
 getTrackFeatures(ids[i])
+print(nameSet)
 print("Ending Program...")
