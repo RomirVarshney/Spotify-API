@@ -90,11 +90,12 @@ tempos = [row[14] for row in tracks]
 
 names = [row[0] for row in tracks]
 
-nameSet = set()
-tierOne = set()
-tierTwo = set()
+nameSet = []
+tierOne = []
+tierTwo = []
+keySet = []
+tierThree = set()
 
-print(keyArray)
 
 print()
 print("These are all the songs in the playlist.")
@@ -127,44 +128,35 @@ for j in range(len(ids)):
       if(names[i] == names[j]):
         continue
       else:
-        nameSet.add(names[i])
-        nameSet.add(names[j])
+        nameSet.append(names[i])
+        nameSet.append(names[j])
+        keySet.append(keyArray[i])
+        keySet.append(keyArray[j])
+
 
         print("Based on BPM, the best mashup pair in the playlist would be")
         print()
         print(names[j], "X", names[i])
         print()
+#print(nameSet)
 
 
+for i in range(len(names) - 1):
+  x = keySet[i]
+  a = nameSet[i]
+  i = i + 1
+  z = keySet[i]
+  b = nameSet[i]
 
-for j in range(len(ids)):
-  x = keyArray[j]
-  for i in range(len(ids)):
-
-    if (i == j):
-      continue
-
-    z = keyArray[i]
-    if(abs(x - z) <= 0.1):
-      if(names[i] == names[j]):
-        continue
-      else:
-        tierOne.add(names[i])
-        tierOne.add(names[j])
+  if((abs(x - z) <= 0.1) and (names[i] != names[j])): # and include BPM in the conditional
+        tierOne.append(a)
+        tierOne.append(b)
         print("Based on key, a tier 1 pair in the playlist would be")
         print()
         print(names[j], "X", names[i])
         print()
-    
-    if((abs(x - z) <= 5.2) and (abs(x - z) >= 4.8)):
-      tierTwo.add(names[i])
-      tierTwo.add(names[j])
-      print("Based on key, a tier 2 pair in the playlist would be")
-      print()
-      print(names[j], "X", names[i])
-      print()
 
-
+print(tierOne)
 
 
 getTrackFeatures(ids[i])
