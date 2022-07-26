@@ -148,17 +148,23 @@ for i in range(len(names) - 1):
   z = keySet[i]
   b = nameSet[i]
 
-  if((abs(x - z) <= 0.1) and (names[i] != names[j])): # and include BPM in the conditional
+  if((abs(x - z) <= 0.1) and (a != b)): # and include BPM in the conditional
         tierOne.append(a)
         tierOne.append(b)
         print("Based on key, a tier 1 pair in the playlist would be")
         print()
-        print(names[j], "X", names[i])
+        print(a, "X", b)
         print()
-
-print(tierOne)
-
+  elif(((abs(x - z) == 5) or abs((x + 12) - z) == 5 or abs(x - (z + 12)) == 5) and (a != b)):
+    tierTwo.append(a)
+    tierTwo.append(b)
+    print("Based on key, a tier 2 pair in the playlist would be")
+    print()
+    print(a, "X", b)
+    print()
 
 getTrackFeatures(ids[i])
-print(nameSet)
+
+
+
 print("Ending Program...")
