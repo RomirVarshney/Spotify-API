@@ -1,4 +1,3 @@
-
 import json
 import requests
 from secrets import spotify_user_id, spotify_token
@@ -28,8 +27,8 @@ def getTrackIDs(user, playlist_id):
         ids.append(track['id'])
     return ids
 
-#ids = getTrackIDs('angelicadietzel', '4R0BZVh27NUJhHGLNitU08')
-ids = getTrackIDs('Romir Varshney', '5ZIFa3koaqbNG7WBqSpcdg')
+ids = getTrackIDs('Romir Varshney', '0IzD6mie2jVgjMO139wPMZ') # Take the Top Off
+#ids = getTrackIDs('Romir Varshney', '5ZIFa3koaqbNG7WBqSpcdg') # Curry Muncher
 
 avgDance = 0.00000000
 keyArray = [] * len(ids)
@@ -134,10 +133,10 @@ for j in range(len(ids)):
         keySet.append(keyArray[j])
 
 
-        print("Based on BPM, the best mashup pair in the playlist would be")
-        print()
-        print(names[j], "X", names[i])
-        print()
+        #print("Based on BPM, the best mashup pair in the playlist would be")
+        #print()
+        #print(names[j], "X", names[i])
+        #print()
 #print(nameSet)
 
 
@@ -151,20 +150,39 @@ for i in range(len(names) - 1):
   if((abs(x - z) <= 0.1) and (a != b)): # and include BPM in the conditional
         tierOne.append(a)
         tierOne.append(b)
-        print("Based on key, a tier 1 pair in the playlist would be")
-        print()
-        print(a, "X", b)
-        print()
-  elif(((abs(x - z) == 5) or abs((x + 12) - z) == 5 or abs(x - (z + 12)) == 5) and (a != b)):
+        #print("Based on key, a tier 1 pair in the playlist would be")
+        #print()
+        #print(a, "X", b)
+        #print()
+  elif(((abs(x - z) == 5) or abs((x + 12) - z == 5) or abs(x - (z + 12)) == 5) and (a != b)):
     tierTwo.append(a)
     tierTwo.append(b)
-    print("Based on key, a tier 2 pair in the playlist would be")
-    print()
-    print(a, "X", b)
-    print()
+    #print("Based on key, a tier 2 pair in the playlist would be")
+    #print()
+    #print(a, "X", b)
+    #print()
 
 getTrackFeatures(ids[i])
 
+print("Tier One", tierOne)
+#print("Tier Two", tierTwo)
+print()
 
+print("Tier One Pairs (Similar BPM and Same Key)")
+print()
+for i in range(0, len(tierOne), 4):
+  a = tierOne[i]
+  i = i + 1
+  b = tierOne[i]
+  print(a, "-", b)
+
+print()
+print("Tier Two Pairs (Similar BPM and Harmonic Fifth Key)")
+print()
+for i in range(0, len(tierTwo), 4):
+  a = tierTwo[i]
+  i = i + 1
+  b = tierTwo[i]
+  print(a, "-", b)
 
 print("Ending Program...")
